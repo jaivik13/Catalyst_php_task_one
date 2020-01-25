@@ -33,11 +33,11 @@ if ((isset($cad['h'])) && isset($cad['u']) && isset($cad['p'])) {
                 if ($conn->query($sql) === TRUE) {
                     echo "Table : users Created Successfully";
                 } else {
-                    echo "Error creating database: " . $conn->error;
+                    echo "Error creating Table: " . $conn->error;
                 }
             }
         } else {
-            echo "Error creating table: " . $conn->error;
+            echo  $conn->error;
         }
     }
 }
@@ -70,7 +70,7 @@ $cadinsert = getopt(null, ["insert:"]);
 
 if (isset($cadinsert['insert'])) {
     // Create connection
-    $conn = new mysqli($cad['h'], $cad['u'], '');
+    $conn = new mysqli($cad['h'], $cad['u'], $cad['p']);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error . "\n\n");
     }
@@ -78,7 +78,7 @@ if (isset($cadinsert['insert'])) {
     $i = 0;
     if (($handle = fopen($cadinsert['insert'], "r")) !== FALSE) {
 
-        $conn = new mysqli($cad['h'], $cad['u'], '', 'user');
+        $conn = new mysqli($cad['h'], $cad['u'], $cad['p'], 'user');
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error . "\n\n");
         }
@@ -112,4 +112,37 @@ if (isset($cadinsert['insert'])) {
         echo "Users Data Inserted Successful";
         exit();
     }
+}
+
+
+//--help
+$cadhelp = getopt(NULL,["help:"]);
+if(isset($cadhelp["help"])){
+echo "-u – MySQL username
+-p – MySQL password
+-h – MySQL host
+
+1.] Create Database use Command 
+Command >>> php user_upload.php -u [yourusername] -p [yourpassword] -h [yourhost] 
+===> This command use for creating database 'user' in MySQL.
+
+2.] Create Table
+Command >>> php user_upload.php --create_table -u [yourusername] -p [yourpassword] -h [yourhost]  
+===> This command use for creating 'users' table in MySQL.
+
+3.] File
+Command >>> php user_upload.php --file users.csv
+===> This command use for file view.
+
+4.] Dryrun
+Command >>> php user_upload.php --dry_run --file users.csv 
+===> Using this command user can see CSV file contain without insert data in to database.
+
+5.] Insert Users CSV file in to dabase
+Command >>> php user_upload.php --insert=users.csv -u [yourusername] -p [yourpassword] -h [yourhost]  
+===> This command use for insert users.csv file data in to database.
+
+6.]HELP
+Command >>> php user_upload.php --help=hp
+===> Using this command user get above list of directives with details.";
 }
