@@ -41,3 +41,25 @@ if ((isset($cad['h'])) && isset($cad['u']) && isset($cad['p'])) {
         }
     }
 }
+
+// --file command
+$cadfile = getopt(null, ["file:"]);
+$caddry = getopt(null, ["dry_run:"]);
+if (isset($cadfile['file']) || isset($caddry['dry_run'])) {   
+    $i = 0;
+    if (($handle = fopen($cadfile['file'], "r")) !== FALSE) {
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            $num = count($data);
+            if ($i == 0) {
+                $i++;
+                continue;
+            }
+            for ($c = 0; $c < $num; $c++) {
+                $data[$c];
+                echo $data[$c]."\n";
+            }
+            $i++;
+        }
+        fclose($handle);
+    }
+}
