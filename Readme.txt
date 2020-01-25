@@ -25,3 +25,12 @@ Command >>> php user_upload.php --insert=users.csv -u [yourusername] -p [yourpas
 6.]HELP
 Command >>> php user_upload.php --help=hp
 ===> Using this command user get above list of directives with details.
+
+
+
+
+Task 2
+
+command 
+
+php logic_test.php
