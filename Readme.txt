@@ -33,4 +33,4 @@ Task 2
 
 command 
 
-php logic_test.php
+php foobar.php
